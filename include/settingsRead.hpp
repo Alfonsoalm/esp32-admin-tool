@@ -1,35 +1,37 @@
-/* -----------------------------------------------
-* AdminESP 2021
-* Sitio WEB
-* Correo: aal.cetemet@gmail.com
-* Plataforma ESP32
-* Proyecto Admin Panel Tool para el ESP32
-* ------------------------------------------------
-*/ 
+/* -------------------------------------------------------------------
+ * AdminESP - ElectronicIOT 2021
+ * Sitio WEB: https://electroniciot.com
+ * Correo: admim@electroniciot.com
+ * Plataforma ESP32
+ * Proyecto Admin Panel Tool para el ESP32
+ * -------------------------------------------------------------------
+*/
 
-boolean settingsReadWifi(){
+// -------------------------------------------------------------------
+// Leer configuraciones de los Parametros WIFI
+// -------------------------------------------------------------------
+boolean settingsReadWiFi(){
     StaticJsonDocument<500> jsonConfig;
-    File file = SPIFFS.open("/SettingWiFi.json", "r");
-    if (deserializeJson(jsonConfig, file)){
-        // si falla la lectura inicia valores por defecto.
-        settingsResetWifi();
-        log("Error falló la lectura de la configuracion Wifi, tomando valores por defecto");
+    File file = SPIFFS.open("/settingwifi.json", "r");
+    if(deserializeJson(jsonConfig, file)){
+        // Si falla la lectura inicia valores por defecto
+        settingResetWiFi();
+        log("Error: Falló la lectura de la configuración WiFi, tomando valores por defecto");
         return false;
-    }
-    else{
-        // ------------- GENERAL -----------------
-        strlcpy(id, jsonConfig["id"], sizeof(id));
+    }else{
+        /* ------------------- GENERAL -------------------- */
+        strlcpy(id, jsonConfig["id"], sizeof(id)); 
         bootCount = jsonConfig["boot"];
-        // ------------- CLIENTE -----------------
+        /* ------------------- CLIENTE -------------------- */
         wifi_staticIP = jsonConfig["wifi_staticIP"];
         strlcpy(wifi_ssid, jsonConfig["wifi_ssid"], sizeof(wifi_ssid));
-        strlcpy(wifi_password, jsonConfig["wifi_pw"], sizeof(wifi_password));
-        strlcpy(wifi_ip_static, jsonConfig["wifi_local_ip"], sizeof(wifi_ip_static));
+        strlcpy(wifi_passw, jsonConfig["wifi_passw"], sizeof(wifi_passw));        
+        strlcpy(wifi_ip_static, jsonConfig["wifi_ip_static"], sizeof(wifi_ip_static));
         strlcpy(wifi_gateway, jsonConfig["wifi_gateway"], sizeof(wifi_gateway));
         strlcpy(wifi_subnet, jsonConfig["wifi_subnet"], sizeof(wifi_subnet));
         strlcpy(wifi_primaryDNS, jsonConfig["wifi_primaryDNS"], sizeof(wifi_primaryDNS));
         strlcpy(wifi_secondaryDNS, jsonConfig["wifi_secondaryDNS"], sizeof(wifi_secondaryDNS));
-        // -------------- AP ---------------------
+        /* ------------------- AP ------------------------ */
         ap_accessPoint = jsonConfig["ap_accessPoint"];
         strlcpy(ap_nameap, jsonConfig["ap_nameap"], sizeof(ap_nameap));
         strlcpy(ap_passwordap, jsonConfig["ap_passwordap"], sizeof(ap_passwordap));
@@ -37,11 +39,8 @@ boolean settingsReadWifi(){
         ap_hiddenap = jsonConfig["ap_hiddenap"];
         ap_connetap = jsonConfig["ap_connetap"];
         file.close();
-        log("info: lectura configuracion Wifi correcta");
+        log("Info: Lectura configuración WiFi correcta");
         return true;
     }
+
 }
-
-
-
-

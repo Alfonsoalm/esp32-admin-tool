@@ -1,9 +1,10 @@
-/* -----------------------------------------------
-* AdminESP 2021
-* Sitio WEB
-* Correo: aal.cetemet@gmail.com
-* Plataforma ESP32
-* Proyecto Admin Panel Tool para el ESP32
-* ------------------------------------------------
-*/ 
+/* -------------------------------------------------------------------
+ * AdminESP - ElectronicIOT 2021
+ * Sitio WEB: https://electroniciot.com
+ * Correo: admim@electroniciot.com
+ * Plataforma ESP32
+ * Proyecto Admin Panel Tool para el ESP32
+ * -------------------------------------------------------------------
+*/
+
 
